@@ -8,6 +8,8 @@ use Cycle\ORM\SchemaInterface as Schema;
 use Cycle\ORM\Select\Source;
 use Cycle\ORM\Tests\Functional\Driver\Common\Integration\Case345\Entity\Post;
 use Cycle\ORM\Tests\Functional\Driver\Common\Integration\Case345\Entity\User;
+use Cycle\ORM\Tests\Functional\Driver\Common\Integration\Case345\Entity\UserId;
+use Cycle\ORM\Tests\Functional\Driver\Common\Typecast\Fixture\IDCaster;
 
 return [
     'post' => [
@@ -50,7 +52,7 @@ return [
             'updated_at' => 'datetime',
             'published_at' => 'datetime',
             'deleted_at' => 'datetime',
-            'user_id' => 'int',
+            'user_id' => [UserId::class, 'typeCast'],
         ],
         Schema::SCHEMA => [],
     ],
@@ -86,7 +88,7 @@ return [
         ],
         Schema::SCOPE => null,
         Schema::TYPECAST => [
-            'id' => 'int',
+            'id' => [UserId::class, 'typeCast'],
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ],

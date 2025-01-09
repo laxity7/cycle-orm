@@ -25,7 +25,7 @@ abstract class CaseTest extends BaseTest
         $this->loadSchema(__DIR__ . '/schema.php');
     }
 
-    public function testSelect(): void
+    public function testChechWrapper(): void
     {
         /** @var Entity\User $post */
         $user = (new Select($this->orm, Entity\User::class))
@@ -50,7 +50,8 @@ abstract class CaseTest extends BaseTest
             ->wherePK($post->id)
             ->fetchOne();
 
-        $this->assertSame(2, $post->user->id);
+        $this->assertEquals('2', (string)$post->user_id);
+        $this->assertEquals('2', (string)$post->user->id);
     }
 
     private function makeTables(): void

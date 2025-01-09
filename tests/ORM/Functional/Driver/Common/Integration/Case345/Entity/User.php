@@ -10,7 +10,7 @@ class User
 {
     public const ROLE = 'user';
 
-    public ?int $id = null;
+    public ?UserId $id = null;
     public string $login;
     public DateTimeImmutable $created_at;
     public DateTimeImmutable $updated_at;
