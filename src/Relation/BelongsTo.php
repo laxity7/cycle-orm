@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Cycle\ORM\Relation;
 
 use Cycle\ORM\Exception\Relation\NullException;
@@ -118,13 +116,20 @@ class BelongsTo extends AbstractRelation implements DependencyInterface
         }
 
         // Check bidirected relation: when related entity has been removed from HasSome relation
-        $oldData = $tuple->node->getData();
+        $oldData = $tuple->state->getData();
         $newData = $rTuple->state->getTransactionData();
         $current = $tuple->state->getData();
         $noChanges = true;
         $toReference = [];
         foreach ($this->outerKeys as $i => $outerKey) {
             $innerKey = $this->innerKeys[$i];
+            // write to console
+            fwrite(\STDOUT, '$oldData: ' . $oldData[$innerKey] . PHP_EOL);
+            fwrite(\STDOUT, '$newData: ' . $newData[$outerKey] . PHP_EOL);
+            fwrite(\STDOUT, '$oldDataType: ' . gettype($oldData[$innerKey]) . PHP_EOL);
+            fwrite(\STDOUT, '$newDataType: ' . gettype($newData[$outerKey]) . PHP_EOL);
+
+            echo 'outerKey: ' . $outerKey . PHP_EOL;
             if (!array_key_exists($innerKey, $oldData) || $oldData[$innerKey] !== $newData[$outerKey]) {
                 return true;
             }
